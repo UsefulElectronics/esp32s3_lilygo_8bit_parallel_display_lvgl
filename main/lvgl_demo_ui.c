@@ -32,6 +32,7 @@ static lv_obj_t *img_logo;
 static lv_obj_t *img_text;
 
 static lv_obj_t *lebel;
+static lv_obj_t *title;
 
 static lv_color_t arc_color[] =
 {
@@ -70,17 +71,25 @@ static void anim_timer_cb(lv_timer_t *timer)
 
 
 
-        img_text = lv_img_create(scr);
-        lv_img_set_src(img_text, &ue_text);
-        lv_obj_set_style_img_opa(img_text, 0, 0);
+//        img_text = lv_img_create(scr);
+//        lv_img_set_src(img_text, &ue_text);
+//        lv_obj_set_style_img_opa(img_text, 0, 0);
+
+        title = lv_label_create(lv_scr_act());
+        lv_obj_add_style(title, &titleStyle, 0);
+        lv_label_set_text(title, "USEFUL ELECTRONICS");
+        lv_obj_set_style_text_opa(title, 0, 0);
     }
 
     // Move images when arc animation finished
     if ((count >= 100) && (count <= 180)) {
         lv_coord_t offset = (sinf((count - 140) * 2.25f / 90.0f) + 1) * 20.0f;
         lv_obj_align(img_logo, LV_ALIGN_CENTER, 0, -offset);
-        lv_obj_align(img_text, LV_ALIGN_CENTER, 0, 1 * offset);
-        lv_obj_set_style_img_opa(img_text, offset / 40.0f * 255, 0);
+        lv_obj_align(title, LV_ALIGN_CENTER, 0, 1 * offset);
+        lv_obj_set_style_text_opa(title, offset / 40.0f * 255, 0);
+        lv_obj_set_style_text_opa(title, 255, 0);
+//        lv_obj_align(img_text, LV_ALIGN_CENTER, 0, 1 * offset);
+//        lv_obj_set_style_img_opa(img_text, offset / 40.0f * 255, 0);
 //        lv_obj_set_style_text_opa(obj, value, selector)
     }
 
@@ -96,7 +105,7 @@ static void anim_timer_cb(lv_timer_t *timer)
         //To let scroll feature work properly, the text size must be larger than the assigned size.
         lv_obj_set_width(lebel, 150);
         lv_label_set_text(lebel, "SUBSCRIBE");
-        lv_obj_align(lebel, LV_ALIGN_CENTER, 0, 60);
+        lv_obj_align(lebel, LV_ALIGN_CENTER, 0, 65);
 
 
 //        lv_style_set_text_font
@@ -134,6 +143,12 @@ void example_lvgl_demo_ui(lv_obj_t *scr)
     textColor16 = lv_color_hex(0x000000);
     lv_obj_add_style(lv_scr_act(), &bgStyle, 0);
     lv_style_set_bg_color(&bgStyle, textColor16);
+    //Change title text style
+    textColor16 = lv_color_hex(0xFFFFFF);
+    lv_style_set_text_color(&titleStyle,textColor16);
+    lv_style_set_text_font(&titleStyle,  &lv_font_montserrat_26);
+
+
 
 
 
