@@ -121,8 +121,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/tinyusb/cmake_install.cmake")
   include("C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/ulp/cmake_install.cmake")
   include("C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/wifi_provisioning/cmake_install.cmake")
-  include("C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/cmake_install.cmake")
   include("C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/main/cmake_install.cmake")
+  include("C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/cmake_install.cmake")
 
 endif()
 

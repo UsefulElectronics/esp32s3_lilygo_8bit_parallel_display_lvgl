@@ -6,11 +6,14 @@
 
 #include <math.h>
 #include "lvgl.h"
+#include "esp_log.h"
 
 #ifndef PI
 #define PI  (3.14159f)
 #endif
 
+
+static const char *DISPLAY = "DISPLAY";
 // LVGL image declare
 
 LV_IMG_DECLARE(ue_logo)
@@ -40,6 +43,18 @@ static lv_color_t arc_color[] =
     LV_COLOR_MAKE(126, 87, 162),
     LV_COLOR_MAKE(90, 202, 228),
 };
+
+static void bg_timer_cb(lv_timer_t *timer)
+{
+	static uint32_t changingColor = 0;
+	lv_color_t bgColor = lv_color_hex(changingColor);
+    lv_style_set_bg_color(&bgStyle, bgColor);
+    changingColor += 0x01;
+    if(0xFFFFFF < changingColor)
+    {
+    	changingColor = 0;
+    }
+}
 
 static void anim_timer_cb(lv_timer_t *timer)
 {
@@ -82,22 +97,25 @@ static void anim_timer_cb(lv_timer_t *timer)
     }
 
     // Move images when arc animation finished
-    if ((count >= 100) && (count <= 180)) {
+    if ((count >= 100) && (count <= 180))
+    {
         lv_coord_t offset = (sinf((count - 140) * 2.25f / 90.0f) + 1) * 20.0f;
         lv_obj_align(img_logo, LV_ALIGN_CENTER, 0, -offset);
         lv_obj_align(title, LV_ALIGN_CENTER, 0, 1 * offset);
+        //as offset changes increase text opacity
         lv_obj_set_style_text_opa(title, offset / 40.0f * 255, 0);
-        lv_obj_set_style_text_opa(title, 255, 0);
-//        lv_obj_align(img_text, LV_ALIGN_CENTER, 0, 1 * offset);
-//        lv_obj_set_style_img_opa(img_text, offset / 40.0f * 255, 0);
-//        lv_obj_set_style_text_opa(obj, value, selector)
     }
+
+
 
     // Delete timer when all animation finished
     if ((count += 5) == 220)
     {
         lv_timer_del(timer);
+        //use full color with the title text
+        lv_obj_set_style_text_opa(title, 255, 0);
         //TODO start another timer and do another animation
+
 
         lebel = lv_label_create(lv_scr_act());
         lv_obj_add_style(lebel, &style, 0);
@@ -106,6 +124,15 @@ static void anim_timer_cb(lv_timer_t *timer)
         lv_obj_set_width(lebel, 150);
         lv_label_set_text(lebel, "SUBSCRIBE");
         lv_obj_align(lebel, LV_ALIGN_CENTER, 0, 65);
+
+//        // Create timer for animation
+//        static my_timer_context_t my_tim_ctx =
+//        {
+//            .count_val = -90,
+//        };
+//        my_tim_ctx.scr = scr;
+//
+        lv_timer_create(bg_timer_cb, 10, NULL);
 
 
 //        lv_style_set_text_font
@@ -133,18 +160,19 @@ void example_lvgl_demo_ui(lv_obj_t *scr)
 //    lv_color_t	textColor16;
 //    textColor16.ch.blue = 0b11;	//green
 //    textColor16.ch.green = 0b000; //red
-//    textColor16.ch.red = 0b000;   //blue			//lv_color_hex(0xblue 0xred 0xgreen)
+//    textColor16.ch.red = 0b000;   //blue			//lv_color_hex(0xblue 0xred 0xgreen) //0xF8FCF8 is white
 
-    lv_color_t textColor16 = lv_color_hex(0x30FC30);
+    lv_color_t textColor16 = lv_color_hex(0x014FF00);
 
     lv_style_set_text_color(&style,textColor16);
     lv_style_set_text_font(&style,  &lv_font_montserrat_28);
     //Change background color
     textColor16 = lv_color_hex(0x000000);
-    lv_obj_add_style(lv_scr_act(), &bgStyle, 0);
+//    lv_obj_add_style(lv_scr_act(), &bgStyle, 0);
+    lv_obj_add_style(scr, &bgStyle, 0);
     lv_style_set_bg_color(&bgStyle, textColor16);
     //Change title text style
-    textColor16 = lv_color_hex(0xFFFFFF);
+    textColor16 = lv_color_hex(0xFF0028);				//0xF8FCF8 is white
     lv_style_set_text_color(&titleStyle,textColor16);
     lv_style_set_text_font(&titleStyle,  &lv_font_montserrat_26);
 
@@ -173,9 +201,15 @@ void example_lvgl_demo_ui(lv_obj_t *scr)
     }
 
     // Create timer for animation
-    static my_timer_context_t my_tim_ctx = {
+    static my_timer_context_t my_tim_ctx =
+    {
         .count_val = -90,
     };
     my_tim_ctx.scr = scr;
+
     lv_timer_create(anim_timer_cb, 20, &my_tim_ctx);
+
+
+//    lv_timer_create(bg_timer_cb, 10, &bg_timer_ctx);
+
 }

@@ -673,13 +673,6 @@ C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/wifi_p
 C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/wifi_provisioning/CMakeFiles/rebuild_cache.dir
 C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/wifi_provisioning/CMakeFiles/list_install_components.dir
 C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/wifi_provisioning/CMakeFiles/install/strip.dir
-C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/__idf_lvgl.dir
-C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/install/local.dir
-C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/install.dir
-C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/edit_cache.dir
-C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/rebuild_cache.dir
-C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/list_install_components.dir
-C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/install/strip.dir
 C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/main/CMakeFiles/install/local.dir
 C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/main/CMakeFiles/install.dir
 C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/main/CMakeFiles/edit_cache.dir
@@ -687,3 +680,10 @@ C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/main/C
 C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/main/CMakeFiles/rebuild_cache.dir
 C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/main/CMakeFiles/list_install_components.dir
 C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/main/CMakeFiles/install/strip.dir
+C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/__idf_lvgl.dir
+C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/install/local.dir
+C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/install.dir
+C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/edit_cache.dir
+C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/rebuild_cache.dir
+C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/list_install_components.dir
+C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl/build/esp-idf/lvgl/CMakeFiles/install/strip.dir
