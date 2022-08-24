@@ -25,7 +25,7 @@
 #include "lvgl.h"
 
 #include "main.h"
-
+#include "lvgl_demo_ui.h"
 /* PRIVATE STRUCTRES ---------------------------------------------------------*/
 
 /* VARIABLES -----------------------------------------------------------------*/
@@ -53,7 +53,7 @@ static void lvglTimerTask						(void* param);
 
 
 
-extern void example_lvgl_demo_ui(lv_obj_t *scr);
+//extern void example_lvgl_demo_ui(lv_obj_t *scr);
 
 static bool example_notify_lvgl_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx)
 {
@@ -227,7 +227,7 @@ void app_main(void)
     ESP_LOGI(TAG, "Display LVGL animation");
     lv_obj_t *scr = lv_disp_get_scr_act(disp);
 
-    example_lvgl_demo_ui(scr);
+    lvgl_demo_ui(scr);
 
     main_creatSysteTasks();
 

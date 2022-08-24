@@ -248,7 +248,7 @@ LEGACY_INCLUDE_COMMON_HEADERS:UNINITIALIZED=
 PROJECT_SOURCE_DIR:UNINITIALIZED=C:/Espressif/frameworks/esp-idf-v4.4.1/esp32_workspace/lvgl
 
 //No help, variable specified on the command line.
-PYTHON:UNINITIALIZED=python
+PYTHON:UNINITIALIZED=C:/Users/Ward/.espressif/python_env/idf4.4_py3.8_env/Scripts/python.exe
 
 //No help, variable specified on the command line.
 PYTHON_DEPS_CHECKED:UNINITIALIZED=1

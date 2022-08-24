@@ -1,61 +1,93 @@
-/*
- * SPDX-FileCopyrightText: 2021 Espressif Systems (Shanghai) CO LTD
+
+/**
+ ******************************************************************************
+ * @Channel Link    :  https://www.youtube.com/user/wardzx1
+ * @file    		:  lvgl_demo_ui.c
+ * @author  		:  Ward Almasarani - Useful Electronics
+ * @version 		:  v.1.0
+ * @date    		:  Aug 21, 2022
+ * @brief   		:
  *
- * SPDX-License-Identifier: CC0-1.0
- */
+ ******************************************************************************/
 
-#include <math.h>
-#include "lvgl.h"
-#include "esp_log.h"
 
-#ifndef PI
-#define PI  (3.14159f)
-#endif
+/* INCLUDES ------------------------------------------------------------------*/
+#include "lvgl_demo_ui.h"
 
+/* PRIVATE STRUCTRES ---------------------------------------------------------*/
+
+/* VARIABLES -----------------------------------------------------------------*/
 
 static const char *DISPLAY = "DISPLAY";
-// LVGL image declare
-
-LV_IMG_DECLARE(ue_logo)
-
-LV_IMG_DECLARE(ue_text)
 
 static lv_style_t style;
 static lv_style_t bgStyle;
 static lv_style_t titleStyle;
 
-typedef struct
-{
-    lv_obj_t *scr;
-    int count_val;
-} my_timer_context_t;
+
 
 static lv_obj_t *arc[3];
 static lv_obj_t *img_logo;
-static lv_obj_t *img_text;
+static lv_obj_t *gif;
+static lv_obj_t *dis;
+static lv_obj_t *meter;
 
 static lv_obj_t *lebel;
 static lv_obj_t *title;
 
+lv_obj_t *tv1;
+lv_obj_t *tv2;
+lv_obj_t *tv3;
+
 static lv_color_t arc_color[] =
 {
-    LV_COLOR_MAKE(0x0B, 0xF4, 0xF6),
-    LV_COLOR_MAKE(126, 87, 162),
-    LV_COLOR_MAKE(90, 202, 228),
+    LV_COLOR_MAKE(0xFF, 0x00, 0x28),
+    LV_COLOR_MAKE(0x14, 0xFF, 0x00),
+    LV_COLOR_MAKE(0xFF, 0xFF, 0xFF),
 };
+/* DEFINITIONS ---------------------------------------------------------------*/
 
+/* MACROS --------------------------------------------------------------------*/
+
+/* PRIVATE FUNCTIONS DECLARATION ---------------------------------------------*/
+
+void		lvgl_demo_ui(lv_obj_t *scr);
+static void bg_timer_cb(lv_timer_t *timer);
+static void anim_timer_cb(lv_timer_t *timer);
+/* FUNCTION PROTOTYPES -------------------------------------------------------*/
+/**
+ * @brief 	lvgl screen content termination timer callback
+ *
+ * @param 	timer	:	pointer to timer settings and user parameters
+ */
 static void bg_timer_cb(lv_timer_t *timer)
 {
-	static uint32_t changingColor = 0;
-	lv_color_t bgColor = lv_color_hex(changingColor);
-    lv_style_set_bg_color(&bgStyle, bgColor);
-    changingColor += 0x01;
-    if(0xFFFFFF < changingColor)
-    {
-    	changingColor = 0;
-    }
+	static uint8_t flipPage = 1;
+
+
+	lv_obj_set_tile_id(dis, 0, flipPage, LV_ANIM_ON);
+
+	flipPage ^= 1;
+//	static uint32_t changingColor = 0;
+//	lv_color_t bgColor = lv_color_hex(changingColor);
+//    lv_style_set_bg_color(&bgStyle, bgColor);
+//
+//    changingColor += 0x010101;
+//    if(0xFFFFFF < changingColor)
+//    {
+//    	changingColor = 0;
+//    }
 }
 
+void set_value(void * indic, int32_t v)
+{
+    lv_meter_set_indicator_end_value(meter, indic, v);
+}
+/**
+ * @brief 	lvgl screen animation timer callback
+ *
+ * @param 	timer	:	pointer to timer settings and user parameters
+ */
 static void anim_timer_cb(lv_timer_t *timer)
 {
     my_timer_context_t *timer_ctx = (my_timer_context_t *) timer->user_data;
@@ -90,7 +122,7 @@ static void anim_timer_cb(lv_timer_t *timer)
 //        lv_img_set_src(img_text, &ue_text);
 //        lv_obj_set_style_img_opa(img_text, 0, 0);
 
-        title = lv_label_create(lv_scr_act());
+        title = lv_label_create(scr);
         lv_obj_add_style(title, &titleStyle, 0);
         lv_label_set_text(title, "USEFUL ELECTRONICS");
         lv_obj_set_style_text_opa(title, 0, 0);
@@ -117,7 +149,7 @@ static void anim_timer_cb(lv_timer_t *timer)
         //TODO start another timer and do another animation
 
 
-        lebel = lv_label_create(lv_scr_act());
+        lebel = lv_label_create(scr);
         lv_obj_add_style(lebel, &style, 0);
         lv_label_set_long_mode(lebel, LV_LABEL_LONG_SCROLL_CIRCULAR);     /*Circular scroll*/
         //To let scroll feature work properly, the text size must be larger than the assigned size.
@@ -132,7 +164,9 @@ static void anim_timer_cb(lv_timer_t *timer)
 //        };
 //        my_tim_ctx.scr = scr;
 //
-        lv_timer_create(bg_timer_cb, 10, NULL);
+        lv_timer_create(bg_timer_cb, 10000, NULL);
+
+
 
 
 //        lv_style_set_text_font
@@ -143,10 +177,26 @@ static void anim_timer_cb(lv_timer_t *timer)
     }
 }
 
-void example_lvgl_demo_ui(lv_obj_t *scr)
+/**
+ * @brief
+ *
+ * @param scr
+ */
+void lvgl_demo_ui(lv_obj_t *scr)
 {
+
+
+	dis = lv_tileview_create(scr);
+	lv_obj_align(dis, LV_ALIGN_TOP_RIGHT, 0, 0);
+//	lv_obj_set_size(dis, LV_PCT(100), LV_PCT(100));
+	tv1 = lv_tileview_add_tile(dis, 0, 0, LV_DIR_HOR);
+	tv2 = lv_tileview_add_tile(dis, 0, 1, LV_DIR_HOR);
+	tv3 = lv_tileview_add_tile(dis, 0, 2, LV_DIR_HOR);
     // Create image
-    img_logo = lv_img_create(scr);
+	img_logo = lv_img_create(tv1);
+//	lv_obj_set_size(img_logo, LV_PCT(100), LV_PCT(100));
+//	lv_obj_clear_flag(img_logo, LV_OBJ_FLAG_SCROLLABLE);
+//    img_logo = lv_img_create(scr);
 //    lv_img_set_src(img_logo, &esp_logo);
     lv_img_set_src(img_logo, &ue_logo);
 
@@ -162,17 +212,17 @@ void example_lvgl_demo_ui(lv_obj_t *scr)
 //    textColor16.ch.green = 0b000; //red
 //    textColor16.ch.red = 0b000;   //blue			//lv_color_hex(0xblue 0xred 0xgreen) //0xF8FCF8 is white
 
-    lv_color_t textColor16 = lv_color_hex(0x014FF00);
+    lv_color_t textColor16 = lv_color_hex(0x14FF00);	//0x014FF00	is purple
 
     lv_style_set_text_color(&style,textColor16);
     lv_style_set_text_font(&style,  &lv_font_montserrat_28);
     //Change background color
     textColor16 = lv_color_hex(0x000000);
 //    lv_obj_add_style(lv_scr_act(), &bgStyle, 0);
-    lv_obj_add_style(scr, &bgStyle, 0);
+    lv_obj_add_style(dis, &bgStyle, 0);
     lv_style_set_bg_color(&bgStyle, textColor16);
     //Change title text style
-    textColor16 = lv_color_hex(0xFF0028);				//0xF8FCF8 is white
+    textColor16 = lv_color_hex(0xFF0028);				//0xF8FCF8 is white //0xFF0028 is cyan
     lv_style_set_text_color(&titleStyle,textColor16);
     lv_style_set_text_font(&titleStyle,  &lv_font_montserrat_26);
 
@@ -184,7 +234,7 @@ void example_lvgl_demo_ui(lv_obj_t *scr)
     // Create arcs
     for (size_t i = 0; i < sizeof(arc) / sizeof(arc[0]); i++)
     {
-        arc[i] = lv_arc_create(scr);
+        arc[i] = lv_arc_create(tv1);
 
         // Set arc caption
         lv_obj_set_size(arc[i], 220 - 30 * i, 220 - 30 * i);
@@ -205,11 +255,63 @@ void example_lvgl_demo_ui(lv_obj_t *scr)
     {
         .count_val = -90,
     };
-    my_tim_ctx.scr = scr;
+    my_tim_ctx.scr = tv1;
+
+    /* page 2 */
+    meter = lv_meter_create(tv2);
+	lv_obj_center(meter);
+	lv_obj_set_size(meter, 170, 170);
+
+	/*Remove the circle from the middle*/
+	lv_obj_remove_style(meter, NULL, LV_PART_INDICATOR);
+
+	/*Add a scale first*/
+	lv_meter_scale_t * scale = lv_meter_add_scale(meter);
+	lv_meter_set_scale_ticks(meter, scale, 11, 2, 10, lv_palette_main(LV_PALETTE_GREY));
+	lv_meter_set_scale_major_ticks(meter, scale, 1, 2, 15, lv_color_hex3(0xeee), 10);
+	lv_meter_set_scale_range(meter, scale, 0, 100, 270, 90);
+
+	/*Add a three arc indicator*/
+	lv_meter_indicator_t * indic1 = lv_meter_add_arc(meter, scale, 10, lv_color_hex3(0x00F), 0);
+	lv_meter_indicator_t * indic2 = lv_meter_add_arc(meter, scale, 10, lv_color_hex3(0x0F0), -10);
+	lv_meter_indicator_t * indic3 = lv_meter_add_arc(meter, scale, 10, lv_color_hex3(0xF00), -20);
+
+	/*Create an animation to set the value*/
+	lv_anim_t a;
+	lv_anim_init(&a);
+	lv_anim_set_exec_cb(&a, set_value);
+	lv_anim_set_values(&a, 0, 100);
+	lv_anim_set_repeat_delay(&a, 100);
+	lv_anim_set_playback_delay(&a, 100);
+	lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE);
+
+	lv_anim_set_time(&a, 2000);
+	lv_anim_set_playback_time(&a, 500);
+	lv_anim_set_var(&a, indic1);
+	lv_anim_start(&a);
+
+	lv_anim_set_time(&a, 1000);
+	lv_anim_set_playback_time(&a, 1000);
+	lv_anim_set_var(&a, indic2);
+	lv_anim_start(&a);
+
+	lv_anim_set_time(&a, 1000);
+	lv_anim_set_playback_time(&a, 2000);
+	lv_anim_set_var(&a, indic3);
+	lv_anim_start(&a);
+//    gif = lv_gif_create(tv2);
+//    lv_obj_center(gif);
+//    lv_gif_set_src(gif, &earth);
 
     lv_timer_create(anim_timer_cb, 20, &my_tim_ctx);
 
 
-//    lv_timer_create(bg_timer_cb, 10, &bg_timer_ctx);
-
 }
+
+
+/**************************  Useful Electronics  ****************END OF FILE***/
+
+
+
+
+

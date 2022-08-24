@@ -1239,7 +1239,7 @@ CONFIG_WPA_MBEDTLS_CRYPTO=y
 #
 # LVGL configuration
 #
-CONFIG_LV_CONF_SKIP=y
+# CONFIG_LV_CONF_SKIP is not set
 # CONFIG_LV_CONF_MINIMAL is not set
 
 #

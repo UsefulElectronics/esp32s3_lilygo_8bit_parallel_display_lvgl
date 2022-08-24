@@ -70,5 +70,5 @@ $<TARGET_FILE:__idf_spiffs>
 $<TARGET_FILE:__idf_usb>
 $<TARGET_FILE:__idf_ulp>
 $<TARGET_FILE:__idf_wifi_provisioning>
-$<TARGET_FILE:__idf_main>
 $<TARGET_FILE:__idf_lvgl>
+$<TARGET_FILE:__idf_main>
