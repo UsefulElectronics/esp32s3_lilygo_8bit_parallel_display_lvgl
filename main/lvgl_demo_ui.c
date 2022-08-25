@@ -18,17 +18,14 @@
 
 /* VARIABLES -----------------------------------------------------------------*/
 
-static const char *DISPLAY = "DISPLAY";
 
 static lv_style_t style;
 static lv_style_t bgStyle;
 static lv_style_t titleStyle;
 
-
-
 static lv_obj_t *arc[3];
 static lv_obj_t *img_logo;
-static lv_obj_t *gif;
+;
 static lv_obj_t *dis;
 static lv_obj_t *meter;
 
@@ -68,21 +65,15 @@ static void bg_timer_cb(lv_timer_t *timer)
 	lv_obj_set_tile_id(dis, 0, flipPage, LV_ANIM_ON);
 
 	flipPage ^= 1;
-//	static uint32_t changingColor = 0;
-//	lv_color_t bgColor = lv_color_hex(changingColor);
-//    lv_style_set_bg_color(&bgStyle, bgColor);
-//
-//    changingColor += 0x010101;
-//    if(0xFFFFFF < changingColor)
-//    {
-//    	changingColor = 0;
-//    }
+
+
 }
 
 void set_value(void * indic, int32_t v)
 {
     lv_meter_set_indicator_end_value(meter, indic, v);
 }
+
 /**
  * @brief 	lvgl screen animation timer callback
  *
@@ -116,12 +107,6 @@ static void anim_timer_cb(lv_timer_t *timer)
 
         // Create new image and make it transparent
 
-
-
-//        img_text = lv_img_create(scr);
-//        lv_img_set_src(img_text, &ue_text);
-//        lv_obj_set_style_img_opa(img_text, 0, 0);
-
         title = lv_label_create(scr);
         lv_obj_add_style(title, &titleStyle, 0);
         lv_label_set_text(title, "USEFUL ELECTRONICS");
@@ -146,9 +131,8 @@ static void anim_timer_cb(lv_timer_t *timer)
         lv_timer_del(timer);
         //use full color with the title text
         lv_obj_set_style_text_opa(title, 255, 0);
-        //TODO start another timer and do another animation
 
-
+        //Create rolling text
         lebel = lv_label_create(scr);
         lv_obj_add_style(lebel, &style, 0);
         lv_label_set_long_mode(lebel, LV_LABEL_LONG_SCROLL_CIRCULAR);     /*Circular scroll*/
@@ -157,19 +141,8 @@ static void anim_timer_cb(lv_timer_t *timer)
         lv_label_set_text(lebel, "SUBSCRIBE");
         lv_obj_align(lebel, LV_ALIGN_CENTER, 0, 65);
 
-//        // Create timer for animation
-//        static my_timer_context_t my_tim_ctx =
-//        {
-//            .count_val = -90,
-//        };
-//        my_tim_ctx.scr = scr;
-//
+        //create page flip timer
         lv_timer_create(bg_timer_cb, 10000, NULL);
-
-
-
-
-//        lv_style_set_text_font
     }
     else
     {
@@ -185,40 +158,27 @@ static void anim_timer_cb(lv_timer_t *timer)
 void lvgl_demo_ui(lv_obj_t *scr)
 {
 
-
+	//Initialize 3 tiles that act as pages
 	dis = lv_tileview_create(scr);
 	lv_obj_align(dis, LV_ALIGN_TOP_RIGHT, 0, 0);
-//	lv_obj_set_size(dis, LV_PCT(100), LV_PCT(100));
 	tv1 = lv_tileview_add_tile(dis, 0, 0, LV_DIR_HOR);
 	tv2 = lv_tileview_add_tile(dis, 0, 1, LV_DIR_HOR);
 	tv3 = lv_tileview_add_tile(dis, 0, 2, LV_DIR_HOR);
-    // Create image
+    // Create image useful electronics logo and put it in the center
 	img_logo = lv_img_create(tv1);
-//	lv_obj_set_size(img_logo, LV_PCT(100), LV_PCT(100));
-//	lv_obj_clear_flag(img_logo, LV_OBJ_FLAG_SCROLLABLE);
-//    img_logo = lv_img_create(scr);
-//    lv_img_set_src(img_logo, &esp_logo);
     lv_img_set_src(img_logo, &ue_logo);
-
     lv_obj_center(img_logo);
-    //create style
+    //create style to manipulate objects characteristics implicitly
     lv_style_init(&style);
     lv_style_init(&bgStyle);
     lv_style_init(&titleStyle);
 
-
-//    lv_color_t	textColor16;
-//    textColor16.ch.blue = 0b11;	//green
-//    textColor16.ch.green = 0b000; //red
-//    textColor16.ch.red = 0b000;   //blue			//lv_color_hex(0xblue 0xred 0xgreen) //0xF8FCF8 is white
-
+    //lv_color_hex(0xblue 0xred 0xgreen) //0xF8FCF8 is white
     lv_color_t textColor16 = lv_color_hex(0x14FF00);	//0x014FF00	is purple
-
     lv_style_set_text_color(&style,textColor16);
     lv_style_set_text_font(&style,  &lv_font_montserrat_28);
     //Change background color
     textColor16 = lv_color_hex(0x000000);
-//    lv_obj_add_style(lv_scr_act(), &bgStyle, 0);
     lv_obj_add_style(dis, &bgStyle, 0);
     lv_style_set_bg_color(&bgStyle, textColor16);
     //Change title text style
@@ -299,9 +259,8 @@ void lvgl_demo_ui(lv_obj_t *scr)
 	lv_anim_set_playback_time(&a, 2000);
 	lv_anim_set_var(&a, indic3);
 	lv_anim_start(&a);
-//    gif = lv_gif_create(tv2);
-//    lv_obj_center(gif);
-//    lv_gif_set_src(gif, &earth);
+	/* page 3 */
+
 
     lv_timer_create(anim_timer_cb, 20, &my_tim_ctx);
 

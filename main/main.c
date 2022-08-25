@@ -45,16 +45,6 @@ static void lvglTimerTask						(void* param);
 /* FUNCTION PROTOTYPES -------------------------------------------------------*/
 
 
-/**************************  Useful Electronics  ****************END OF FILE***/
-
-
-
-
-
-
-
-//extern void example_lvgl_demo_ui(lv_obj_t *scr);
-
 static bool example_notify_lvgl_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx)
 {
     lv_disp_drv_t *disp_driver = (lv_disp_drv_t *)user_ctx;
@@ -231,14 +221,5 @@ void app_main(void)
 
     main_creatSysteTasks();
 
-
-
-//    while (1)
-//    {
-//        // raise the task priority of LVGL and/or reduce the handler period can improve the performance
-//        vTaskDelay(pdMS_TO_TICKS(10));
-//        // The task running lv_timer_handler should have lower priority than that running `lv_tick_inc`
-//
-//    }
 }
-
+/**************************  Useful Electronics  ****************END OF FILE***/
