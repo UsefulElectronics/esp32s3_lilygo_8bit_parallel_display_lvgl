@@ -1,3 +1,23 @@
+[![Build Status](https://img.shields.io/badge/USEFUL%20ELECTRONICS-YOUTUBE-red)](https://www.youtube.com/user/wardzx1)
+# ESP32S3 Interfacing 8bit Display Using LVGL and ESP IDF
+***
+***
+
+Tutorial Series Sponsor PCBWay Website. You can get extra free coupons using the link below:
+https://www.pcbway.com/setinvite.aspx?inviteid=582640
+***
+
+### [Tutorial Link](https://youtu.be/88MwR-4Dy0Q) On [![Build Status](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/wardzx1) 
+
+In this tutorial I am sharing with you guys my experiment with ESP32S3 1.9 inch TFT T-Display development board from Lyligo, where I have managed to integrate LVGL display graphic library with ESP-IDF to build my own simple user interface and share my work on GitHub repository below. 
+
+I have also tested the board factory firmware to test the display capabilities. 
+
+The implemented code is explained in details. You can use lv_conf.h file as a reference for LVGL library configuration.
+
+![Circuit Diagram](https://github.com/UsefulElectronics/esp32s3_lilygo_8bit_parallel_display_lvgl/blob/main/repo%20cover/cover.jpg)
+
+
 | Supported Targets | ESP32 | ESP32-S2 | ESP32-S3 |
 | ----------------- | ----- | -------- | -------- |
 # LVGL porting example
