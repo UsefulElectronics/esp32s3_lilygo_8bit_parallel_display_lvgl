@@ -3,7 +3,7 @@
 ***
 ***
 
-Tutorial Series Sponsor PCBWay Website. You can get extra free coupons using the link below:
+Tutorial Series Sponsor PCBWay Website. They have discount on 4&6 layers PCBs and you can get extra free coupons using the link below:
 https://www.pcbway.com/setinvite.aspx?inviteid=582640
 ***
 
