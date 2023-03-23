@@ -72,6 +72,10 @@ The connection between ESP Board and the LCD is as follows:
 The GPIO number used by this example can be changed in [lvgl_example_main.c](main/lvgl_example_main.c).
 Especially, please pay attention to the level used to turn on the LCD backlight, some LCD module needs a low level to turn it on, while others take a high level. You can change the backlight level macro `EXAMPLE_LCD_BK_LIGHT_ON_LEVEL` in [lvgl_example_main.c](main/lvgl_example_main.c).
 
+### Setup Build Environment
+
+Run `idf.py set-target esp32s3` which will set the target architecture to that of the T-Display-S3 and rebuild the sdkconfig file from [sdkconfig.defaults](main/sdkconfig.defaults).
+
 ### Build and Flash
 
 Run `idf.py -p PORT build flash monitor` to build, flash and monitor the project. A fancy animation will show up on the LCD as expected.
